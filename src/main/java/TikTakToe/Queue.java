@@ -3,7 +3,7 @@ package TikTakToe;
 public class Queue<E> {
 
     E[] arr = (E[]) new Object[1];
-    public int size = 0;
+    private int size = 0;
     E headOfQueue = null;
 
     public E[] insertInQueue(E element) {
@@ -108,6 +108,10 @@ public class Queue<E> {
 
         return arr[i];
 
+    }
+
+    public int getSize() {
+        return size;
     }
 
 

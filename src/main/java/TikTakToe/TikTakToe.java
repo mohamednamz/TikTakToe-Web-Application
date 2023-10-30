@@ -4,7 +4,18 @@ import java.util.Arrays;
 
 public class TikTakToe {
 
-    static char[][] board = {
+    static String playerBoard = "";
+
+    static boolean gameOver;
+    public String getPlayerBoard() {
+        return playerBoard;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    char[][] board = {
             {' ', ' ', ' '},
             {' ', ' ', ' '},
             {' ', ' ', ' '}
@@ -13,11 +24,15 @@ public class TikTakToe {
     static char Cross = 'X';
     static char Circle = 'O';
 
-    public void playMove(int yCoordinate, int xCoordinate, Player player) {
+    public char[][] getBoard() {
+        return board;
+    }
+
+    public char[][] playMove(int yCoordinate, int xCoordinate, Player player) {
 
         if (board[yCoordinate][xCoordinate] != ' ') {
             System.out.println("your opponent is occupying this space, try another move");
-            return;
+            return board;
         }
         board[yCoordinate][xCoordinate] = player.character;
 
@@ -25,24 +40,26 @@ public class TikTakToe {
         if (player.winner) {
             print(player);
             printBoard(board);
-            return;
+            return board;
         }
 
         checkVertical(board, player);
         if (player.winner) {
             print(player);
             printBoard(board);
-            return;
+            return board;
         }
 
         checkDiagonal(board, player);
         if (player.winner) {
             print(player);
             printBoard(board);
-            return;
+            return board;
         }
 
         printBoard(board);
+
+        return board;
     }
 
     public static Player checkHorizontal(char[][] board, Player player) {
@@ -141,10 +158,14 @@ public class TikTakToe {
     }
 
     public static void print(Player player) {
+        gameOver = true;
         System.out.println("TikTakToe.TikTakToe.Game over, " + player.name + " has won the game");
     }
 
-    public static void printBoard(char[][] board) {
+    public static String printBoard(char[][] board) {
+
+
+
         String gridBorder = "------------------------";
         int spaceBetweenEachBarrier = (gridBorder.length() / 4);
         char[] cell = new char[spaceBetweenEachBarrier + 1];
@@ -163,6 +184,10 @@ public class TikTakToe {
                 gridBorder;
 
         System.out.println(renderedBoard);
+
+        playerBoard = renderedBoard;
+
+        return playerBoard;
     }
 
     public static String addPieceToCell(char[] cell, char piece) {

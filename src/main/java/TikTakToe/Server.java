@@ -5,8 +5,25 @@ import java.util.List;
 
 public class Server {
 
-    private Queue<Player> playerQueue = new Queue<Player>();
+    public Queue<Player> playerQueue = new Queue<Player>();
     private List<Game> listOfGames = new ArrayList<>();
+
+    public Game getFirstGame() {
+        return listOfGames.get(0);
+
+    }
+
+    public Game getGame(Player player) {
+
+        for (int i = 0; i < listOfGames.size(); i++) {
+            if (listOfGames.get(i).playerOne == player || listOfGames.get(i).playerTwo == player) {
+                return listOfGames.get(i);
+            }
+        }
+        return null;
+    }
+
+
 
     public Game joinGame(Player player) {
 
@@ -18,7 +35,7 @@ public class Server {
         playerQueue.insertInQueue(player);
 
         //TODO do i have a list of games? and matches players to know what game is going on.
-        if(playerQueue.size == 2) {
+        if(playerQueue.getSize() == 2) {
             Game game = new Game();
 
             game.playerOne = playerQueue.checkQueue(0);
@@ -47,6 +64,10 @@ public class Server {
 
         playerQueue.removeFromQueue(player);
 
+    }
+
+    public int queueSize() {
+        return playerQueue.getSize();
     }
 
     public void printStartGame(Player playerOne, Player playerTwo) {
