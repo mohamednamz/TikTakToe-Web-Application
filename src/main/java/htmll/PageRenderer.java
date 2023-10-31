@@ -2,6 +2,7 @@ package htmll;
 
 import Controller.Routes;
 import TikTakToe.Game;
+import TikTakToe.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,36 +46,47 @@ public class PageRenderer {
                        <button>
                            <type="button" id="9", data-y="2", data-x="2" onclick="myFunction(this)">[<INSERT22>]</button>
                    <div>
-                   </div>""";
-
-    public static String FAKEBOARD = """
-                    
-            <div>
-                    <div>
-                        <button>
-                            <type="button" onclick="myFunction(this)">[X]</button>
-                        <button>
-                            <type="button" onclick="myFunction(this)">[0]</button>
-                        <button>
-                            <type="button" onclick="myFunction(this)">[ ]</button>
-                    <div>
-                    <div>
-                        <button>
-                            <type="button" onclick="myFunction(this)">[ ]</button>
-                        <button>
-                            <type="button" onclick="myFunction(this)">[ ]</button>
-                        <button>
-                            <type="button" onclick="myFunction(this)">[ ]</button>
-                    <div>
-                    <div>
-                        <button>
-                            <type="button" onclick="myFunction(this)">[ ]</button>
-                        <button>
-                            <type="button" onclick="myFunction(this)">[ ]</button>
-                        <button>
-                            <type="button" onclick="myFunction(this)">[ ]</button>
-                    <div>
+                   </div>
+                   
+                   <div>
+                    <a href= "http://localhost/Login/leaveGame">Leave Game</a>
                     </div>""";
+
+    public String NEWBOARD = """
+
+                     <script src="/JavaScript.js"></script>
+                   </head>
+            <div id="board">
+                   <div>
+                       <button>
+                           <type="button" id="1", data-y="0", data-x="0" onclick="myFunction(this)">[<INSERT00>]</button>
+                       <button>
+                           <type="button" id="2", data-y="0", data-x="1" onclick="myFunction(this)">[<INSERT01>]</button>
+                       <button>
+                           <type="button" id="3", data-y="0", data-x="2" onclick="myFunction(this)">[<INSERT02>]</button>
+                   <div>
+                   <div>
+                       <button>
+                           <type="button" id="4", data-y="1", data-x="0" onclick="myFunction(this)">[<INSERT10>]</button>
+                       <button>
+                           <type="button" id="5", data-y="1", data-x="1" onclick="myFunction(this)">[<INSERT11>]</button>
+                       <button>
+                           <type="button" id="6", data-y="1", data-x="2" onclick="myFunction(this)">[<INSERT12>]</button>
+                   <div>
+                   <div>
+                       <button>
+                           <type="button" id="7", data-y="2", data-x="0" onclick="myFunction(this)">[<INSERT20>]</button>
+                       <button>
+                           <type="button" id="8", data-y="2", data-x="1" onclick="myFunction(this)">[<INSERT21>]</button>
+                       <button>
+                           <type="button" id="9", data-y="2", data-x="2" onclick="myFunction(this)">[<INSERT22>]</button>
+                   <div>
+                   </div>
+                   
+                   <div>
+                    <a href= "http://localhost/Login/leaveGame">Leave Game</a>
+                    </div>
+                    """;
 
 
     public static String HTML = "<html>\n" +
@@ -128,6 +140,8 @@ public class PageRenderer {
         char Cross = 'X';
         char Circle = 'O';
 
+        BOARD = NEWBOARD;
+
         String renderBoard = BOARD;
 
         char[][] charBoard = game.getBoard();
@@ -144,8 +158,14 @@ public class PageRenderer {
 
         }
 
-        BOARD = renderBoard;
+        if (game.isGameOver()) {
+            BOARD = renderBoard;
+            return renderBoard + ("<div>" + "You Win!" + "</div>");
+        }
 
+        //renderBoard = BOARD.replace("<INSERT>", playerName);
+
+        BOARD = renderBoard;
         return renderBoard;
     }
 
@@ -168,10 +188,28 @@ public class PageRenderer {
 
     }
 
-    public String renderBoard(Game game) {
+    public String renderBoard(Game game, Player player) {
+
+        //BOARD.replace("<INSERT>", player.name);
+
         if (game.isGameOver()) {
-           return BOARD += "<div>" + "Game Over, You Lost" + "</div>";
+
+            if (player.winner) {
+                return BOARD + ("<div>" + "Game Over, You Won" + "</div>");
+            } else {
+                return BOARD + ("<div>" + "Game Over, You Lost" + "</div>");
+            }
         }
+        return BOARD;
+    }
+
+    public String renderNotYourTurn(Game game) {
+        String renderBoard = BOARD;
+        return renderBoard + ("<div>" + "Waiting for your opponent to move" + "</div>");
+    }
+
+    public String renderNewBoard() {
+        BOARD = NEWBOARD;
         return BOARD;
     }
 

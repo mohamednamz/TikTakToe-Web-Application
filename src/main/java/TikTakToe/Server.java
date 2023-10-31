@@ -24,10 +24,9 @@ public class Server {
     }
 
 
-
     public Game joinGame(Player player) {
 
-        if(player.numberOfQuits >= 5) {
+        if (player.numberOfQuits >= 5) {
             System.out.println("You've been banned for surpassing number of permitted quits");
             return null;
         }
@@ -35,7 +34,7 @@ public class Server {
         playerQueue.insertInQueue(player);
 
         //TODO do i have a list of games? and matches players to know what game is going on.
-        if(playerQueue.getSize() == 2) {
+        if (playerQueue.getSize() == 2) {
             Game game = new Game();
 
             game.playerOne = playerQueue.checkQueue(0);
@@ -48,7 +47,7 @@ public class Server {
 
             listOfGames.add(game);
 
-            printStartGame(game.playerOne,game.playerTwo);
+            printStartGame(game.playerOne, game.playerTwo);
 
             playerQueue.remove(0);
             playerQueue.dequeue();
@@ -72,25 +71,25 @@ public class Server {
 
     public void printStartGame(Player playerOne, Player playerTwo) {
 
-        System.out.println(playerOne.name + " will play " + playerTwo.name + " as 'X', " + playerOne.name + " to start" );
+        System.out.println(playerOne.name + " will play " + playerTwo.name + " as 'X', " + playerOne.name + " to start");
 
     }
 
     public boolean keepScore(int yCoord, int xCoord, Player player) {
         Game game = new Game();
 
-        for( int i = 0; i < listOfGames.size(); i++) {
-            if(listOfGames.get(i).playerOne == player || listOfGames.get(i).playerTwo == player) {
+        for (int i = 0; i < listOfGames.size(); i++) {
+            if (listOfGames.get(i).playerOne == player || listOfGames.get(i).playerTwo == player) {
                 game = listOfGames.get(i);
                 break;
             }
         }
 
-        if(game.playerOne.winner) {
+        if (game.playerOne.winner) {
             print(game.playerOne);
             return player.winner;
         }
-        if(game.playerTwo.winner) {
+        if (game.playerTwo.winner) {
             print(game.playerTwo);
             return player.winner;
         }
@@ -102,39 +101,53 @@ public class Server {
     }
 
     public Player leaveGame(Player player) {
-        Game game = new Game();
+        //  Game game = new Game();
 
-        int Queue = 0;
+        //  int Queue = 0;
+        Player opponent = new Player();
 
-        for( int i = 0; i < listOfGames.size(); i++) {
-            if(listOfGames.get(i).playerOne == player || listOfGames.get(i).playerTwo == player) {
-                game = listOfGames.get(i);
-                Queue = i;
+        for (int i = 0; i < listOfGames.size(); i++) {
+            if (listOfGames.get(i).playerOne == player || listOfGames.get(i).playerTwo == player) {
+                player.isInGame = false;
+                player.numberOfQuits++;
+                if (player == listOfGames.get(i).playerOne) {
+                    opponent = listOfGames.get(i).playerTwo;
+                } else {
+                    opponent = listOfGames.get(i).playerOne;
+                }
+                opponent.isInGame = false;
+                listOfGames.remove(listOfGames.get(i));
+                //game = listOfGames.get(i);
+                // Queue = i;
                 break;
             }
         }
 
-        if(player == game.playerOne) {
-            game.playerOne.isInGame = false;
-            player.numberOfQuits++;
-            game.playerTwo.winner = true;
-            print(game.playerTwo);
-            listOfGames.remove(Queue);
-            joinGame(game.playerTwo);
-            joinGame(player);
-            return game.playerTwo;
-        }
-
-        if(player == game.playerTwo) {
-            game.playerTwo.isInGame = false;
-            player.numberOfQuits++;
-            game.playerOne.winner = true;
-            print(game.playerOne);
-            listOfGames.remove(Queue);
-            joinGame(game.playerOne);
-            joinGame(player);
-            return game.playerOne;
-        }
+//       // if(player == naughtyPlayer){ //game.playerOne) {
+//           // player.isInGame = false;
+//            //game.playerOne.isInGame = false;
+//         //   player.numberOfQuits++;
+//            //game.playerTwo.winner = true;
+//            //game.playerTwo.hasBeenRemoved = true;
+//            //print(game.playerTwo);
+//            //listOfGames.remove(Queue);
+//            //joinGame(game.playerTwo);
+//            //joinGame(player);
+//          //  return player; //.playerTwo;
+//       // }
+//
+//       // if(player == naughtyPlayer){ //game.playerTwo) {
+//            player.isInGame = false;
+//            //game.playerTwo.isInGame = false;
+//            player.numberOfQuits++;
+//            //game.playerOne.winner = true;
+//            //game.playerOne.hasBeenRemoved = true;
+//            //print(game.playerOne);
+//            //listOfGames.remove(Queue);
+//            //joinGame(game.playerOne);
+//            //joinGame(player);
+//           // return player; //.playerOne;
+//       // }
         return player;
     }
 

@@ -6,7 +6,19 @@ public class Game {
     Player playerTwo;
     TikTakToe startGame = new TikTakToe();
 
+    boolean newGame = true;
 
+
+    public boolean isNewGame() {
+        return newGame;
+    }
+    public void setNewGame(boolean newGame) {
+        this.newGame = newGame;
+    }
+
+    public char getLastMove() {
+        return startGame.lastMove;
+    }
 
     public String getStartGame() {
         return startGame.getPlayerBoard();
@@ -23,6 +35,7 @@ public class Game {
     public boolean isGameOver() {
         return startGame.isGameOver();
     }
+
 
 }
 

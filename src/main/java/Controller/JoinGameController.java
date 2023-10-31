@@ -31,19 +31,33 @@ public class JoinGameController implements Route {
         Player player = playerInterface.getPlayer(playerName);
 
         if (player.isInGame) {
-
             Game game = server.getGame(player);
 
-            return pageRenderer.RefreshBoard(game);
+            if (game.isGameOver()) {
+                return pageRenderer.renderBoard(game, player);
+            } else {
 
+                return pageRenderer.RefreshBoard(game);
+            }
         }
 
         Game game = server.joinGame(player);
 
         if (game == null) {
-            return "you have been put into a game, waiting for opponent to connect";
+            if (player.hasBeenRemoved) {
+                player.hasBeenRemoved = false;
+                return "Your previous opponent quit, searching for new game";
+            } else {
+                return "you have been put into a game, waiting for opponent to connect" + "<div> <a href=\"http://localhost//Login?name=" + playerName + "\">" + "Go back to homepage </a> </div>";
+            }
         }
-        return pageRenderer.renderBoard(game);
+
+        if (game.isNewGame()) {
+            game.setNewGame(false);
+            return pageRenderer.renderNewBoard();
+        }
+
+        return pageRenderer.renderBoard(game, player);
     }
 
 

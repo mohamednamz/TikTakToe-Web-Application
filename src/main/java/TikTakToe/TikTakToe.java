@@ -15,6 +15,8 @@ public class TikTakToe {
         return gameOver;
     }
 
+    char lastMove = ' ';
+
     char[][] board = {
             {' ', ' ', ' '},
             {' ', ' ', ' '},
@@ -35,6 +37,7 @@ public class TikTakToe {
             return board;
         }
         board[yCoordinate][xCoordinate] = player.character;
+        lastMove = player.character;
 
         checkHorizontal(board, player);
         if (player.winner) {

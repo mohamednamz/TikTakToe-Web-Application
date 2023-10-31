@@ -9,6 +9,8 @@ public class Player {
     public boolean isInGame;
     public int numberOfQuits;
 
+    public boolean hasBeenRemoved;
+
     public int userId;
 
 

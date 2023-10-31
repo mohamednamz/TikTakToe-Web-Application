@@ -12,7 +12,7 @@ List<Routes> routes;
         routes = new ArrayList<>();
 
         routes.add(new Routes("/Login/JoinGame", "join game"));
-        routes.add(new Routes("/Login", "homepage"));
+        routes.add(new Routes("/Lobby", "Lobby"));
 
 
         return routes;

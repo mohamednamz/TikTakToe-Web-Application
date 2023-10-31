@@ -36,17 +36,22 @@ public class Main {
 
         PlayerInterface playerInterface = new PlayerInterface();
         Player player = new Player();
-
-        player.name = "namz";
-        player.userId = 1;
-
-        Player player1 = new Player();
-
-        player1.name = "james";
-        player1.userId = 2;
+//
+//        player.name = "namz";
+//        player.userId = 1;
+//
+//        Player player1 = new Player();
+//
+//        player1.name = "umar";
+//        player1.userId = 2;
+//
+//        Player player2 = new Player();
+//        player2.name = ""
 
         playerInterface.addPlayer("namz");
         playerInterface.addPlayer("umar");
+        playerInterface.addPlayer("james");
+        playerInterface.addPlayer("louis");
 
         Queue<Player> queue = new Queue<Player>();
 
@@ -70,6 +75,8 @@ public class Main {
 
         MakeMoveController makeMoveController = new MakeMoveController(playerInterface,server,pageRenderer);
 
+        LeaveGameController leaveGameController = new LeaveGameController(playerInterface,pageRenderer, server);
+
         get("/Players", AddPlayerController);
 
         get("/Lobby",lobbyController);
@@ -81,6 +88,8 @@ public class Main {
         get("/render", new TheGameLoopController(playerInterface,server, pageRenderer));
 
         get("/makeMove", makeMoveController);
+
+        get("/Login/leaveGame", leaveGameController);
 
 
     }

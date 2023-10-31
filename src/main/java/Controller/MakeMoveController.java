@@ -42,11 +42,14 @@ public class MakeMoveController implements Route {
         Game game = server.getGame(player);
 
         if (game.isGameOver()) {
-return pageRenderer.renderBoard(game);
+            return pageRenderer.renderBoard(game, player);
+        }
+
+        if (game.getLastMove() == player.character) {
+            return pageRenderer.renderNotYourTurn(game);
         }
 
         game.getPlayMove(Integer.parseInt(yCor), Integer.parseInt(xCor), player);
-
 
         return pageRenderer.RefreshBoard(game);
     }

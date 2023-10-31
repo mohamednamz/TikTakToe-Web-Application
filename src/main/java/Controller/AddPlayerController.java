@@ -24,10 +24,14 @@ public class AddPlayerController implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
 
-        playerInterface.addPlayer(player.name);
+        //playerInterface.addPlayer(player.name);
 
         queue.insertInQueue(player);
 
-        return "player has joined the server";
+        String message = "player has joined the server";
+
+        return message += "<div> <a href=\"http://localhost/Lobby\">" + "Go to lobby </a> </div>";
+
+
     }
 }
