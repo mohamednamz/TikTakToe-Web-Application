@@ -17,7 +17,7 @@ public class PageRenderer {
             {' ', ' ', ' '}
     };
 
-    public String BOARD = """
+    public static String BOARD = """
 
                      <script src="/JavaScript.js"></script>
                    </head>
@@ -49,7 +49,7 @@ public class PageRenderer {
                    </div>
                    
                    <div>
-                    <a href= "http://localhost/Login/leaveGame">Leave Game</a>
+                    <a href= "http://192.168.1.15/Login/leaveGame">Leave Game</a>
                     </div>""";
 
     public String NEWBOARD = """
@@ -84,7 +84,7 @@ public class PageRenderer {
                    </div>
                    
                    <div>
-                    <a href= "http://localhost/Login/leaveGame">Leave Game</a>
+                    <a href= "http://192.168.1.15/Login/leaveGame">Leave Game</a>
                     </div>
                     """;
 
@@ -135,7 +135,7 @@ public class PageRenderer {
             "</html>";
 
 
-    public String RefreshBoard(Game game) {
+    public String RefreshBoard(Game game, Player player) {
 
         char Cross = 'X';
         char Circle = 'O';
@@ -160,7 +160,11 @@ public class PageRenderer {
 
         if (game.isGameOver()) {
             BOARD = renderBoard;
-            return renderBoard + ("<div>" + "You Win!" + "</div>");
+            if (player.winner) {
+                return renderBoard + ("<div>" + "You Win!" + "</div>");
+            } else {
+                return renderBoard + ("<div>" + "You Lose" + "</div>");
+            }
         }
 
         //renderBoard = BOARD.replace("<INSERT>", playerName);
@@ -175,7 +179,7 @@ public class PageRenderer {
 
         for (int i = 0; i < listOfRoutes.size(); i++) {
 
-            CARD_HTML += "<a href=\"http://localhost/" + listOfRoutes.get(i).getRoute() + "\">" + listOfRoutes.get(i).getRouteName() + "</a>";
+            CARD_HTML += "<a href=\"http://192.168.1.15/" + listOfRoutes.get(i).getRoute() + "\">" + listOfRoutes.get(i).getRouteName() + "</a>";
             CARD_HTML += "</div>";
             CARD_HTML += "<div>";
         }
@@ -218,12 +222,12 @@ public class PageRenderer {
 //
 //        for (Book book : books) {
 //            CARD_HTML += "<div>" + book.getInfo() + "- " + book.getId();
-//            CARD_HTML += "<a href=\"http://localhost/books/borrow?id=" + book.getId() + "\">" + " Borrow book</a>";
+//            CARD_HTML += "<a href=\"http://192.168.1.15/books/borrow?id=" + book.getId() + "\">" + " Borrow book</a>";
 //            CARD_HTML += "</div>";
 //        }
 //
 //        CARD_HTML += "<div>";
-//        CARD_HTML += "<a href=\"http://localhost/returnToHomepage\">" + " Homepage </a>";
+//        CARD_HTML += "<a href=\"http://192.168.1.15/returnToHomepage\">" + " Homepage </a>";
 //        CARD_HTML += "</div>";
 //
 //        CARD_HTML += "</div>";
@@ -237,12 +241,12 @@ public class PageRenderer {
 //
 //        for (Book book : books) {
 //            CARD_HTML += "<div>" + book.getInfo() + "- " + book.getId();
-//            CARD_HTML += "<a href=\"http://localhost/books/reserve?id=" + book.getId() + "\">" + " Reserve book </a>";
+//            CARD_HTML += "<a href=\"http://192.168.1.15/books/reserve?id=" + book.getId() + "\">" + " Reserve book </a>";
 //            CARD_HTML += "</div>";
 //        }
 //
 //        CARD_HTML += "<div>";
-//        CARD_HTML += "<a href=\"http://localhost/returnToHomepage\">" + " Homepage </a>";
+//        CARD_HTML += "<a href=\"http://192.168.1.15/returnToHomepage\">" + " Homepage </a>";
 //        CARD_HTML += "</div>";
 //
 //        CARD_HTML += "</div>";
@@ -256,12 +260,12 @@ public class PageRenderer {
 //
 //        for (Book book : books) {
 //            CARD_HTML += "<div>" + book.getInfo() + "- " + book.getId();
-//            CARD_HTML += "<a href=\"http://localhost/books/cancelReservation?id=" + book.getId() + "\">" + " cancel reservation </a>";
+//            CARD_HTML += "<a href=\"http://192.168.1.15/books/cancelReservation?id=" + book.getId() + "\">" + " cancel reservation </a>";
 //            CARD_HTML += "</div>";
 //        }
 //
 //        CARD_HTML += "<div>";
-//        CARD_HTML += "<a href=\"http://localhost/returnToHomepage\">" + " Homepage </a>";
+//        CARD_HTML += "<a href=\"http://192.168.1.15/returnToHomepage\">" + " Homepage </a>";
 //        CARD_HTML += "</div>";
 //
 //        CARD_HTML += "</div>";
@@ -277,7 +281,7 @@ public class PageRenderer {
 //        CARD_HTML += "<li>" + book.getInfo() + "</li>";
 //
 //        CARD_HTML += "<div>";
-//        CARD_HTML += "<a href=\"http://localhost/returnToHomepage\">" + " Homepage </a>";
+//        CARD_HTML += "<a href=\"http://192.168.1.15/returnToHomepage\">" + " Homepage </a>";
 //        CARD_HTML += "</div>";
 //
 //
@@ -304,13 +308,13 @@ public class PageRenderer {
 //
 //        for (int i = 0; i < books.size(); i++) {
 //            CARD_HTML += "<li>" + books.get(i).getInfo() + books.get(i).getId() + "</li>";
-//            CARD_HTML += "<a href=\"http://localhost/books/return?id=" + ids.get(i) + "\"> return </a>";
+//            CARD_HTML += "<a href=\"http://192.168.1.15/books/return?id=" + ids.get(i) + "\"> return </a>";
 //        }
 //
 //        CARD_HTML += "</ul>";
 //
 //        CARD_HTML += "<div>";
-//        CARD_HTML += "<a href=\"http://localhost/returnToHomepage\">" + " Homepage </a>";
+//        CARD_HTML += "<a href=\"http://192.168.1.15/returnToHomepage\">" + " Homepage </a>";
 //        CARD_HTML += "</div>";
 //
 //        String renderedHTML = HTML.replace("<INSERT>", CARD_HTML);
@@ -333,13 +337,13 @@ public class PageRenderer {
 //
 //        for (int i = 0; i < books.size(); i++) {
 //            CARD_HTML += "<li>" + books.get(i).getInfo() + books.get(i).getId() + "</li>";
-//            CARD_HTML += "<a href=\"http://localhost/books/cancelReservation?id=" + ids.get(i) + "\"> cancel reservation </a>";
+//            CARD_HTML += "<a href=\"http://192.168.1.15/books/cancelReservation?id=" + ids.get(i) + "\"> cancel reservation </a>";
 //        }
 //
 //        CARD_HTML += "</ul>";
 //
 //        CARD_HTML += "<div>";
-//        CARD_HTML += "<a href=\"http://localhost/returnToHomepage\">" + " Homepage </a>";
+//        CARD_HTML += "<a href=\"http://192.168.1.15/returnToHomepage\">" + " Homepage </a>";
 //        CARD_HTML += "</div>";
 //
 //        String renderedHTML = HTML.replace("<INSERT>", CARD_HTML);
@@ -350,11 +354,11 @@ public class PageRenderer {
         String CARD_HTML = "<div>";
 
         CARD_HTML += "<div>" + "You have an outstanding balance of £" + fine;
-        CARD_HTML += "<a href=\"http://localhost/books/fines\">" + " pay fine </a>";
+        CARD_HTML += "<a href=\"http://192.168.1.15/books/fines\">" + " pay fine </a>";
         CARD_HTML += "</div>";
 
         CARD_HTML += "<div>";
-        CARD_HTML += "<a href=\"http://localhost/returnToHomepage\">" + " Homepage </a>";
+        CARD_HTML += "<a href=\"http://192.168.1.15/returnToHomepage\">" + " Homepage </a>";
         CARD_HTML += "</div>";
 
         CARD_HTML += "</div>";
@@ -369,7 +373,7 @@ public class PageRenderer {
         CARD_HTML += "<div>" + message + "</div>";
 
         CARD_HTML += "<div>";
-        CARD_HTML += "<a href=\"http://localhost/returnToHomepage\">" + " Homepage </a>";
+        CARD_HTML += "<a href=\"http://192.168.1.15/returnToHomepage\">" + " Homepage </a>";
         CARD_HTML += "</div>";
 
         CARD_HTML += "</div>";

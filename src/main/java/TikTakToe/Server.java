@@ -24,7 +24,7 @@ public class Server {
     }
 
 
-    public Game joinGame(Player player) {
+    public synchronized Game joinGame(Player player) {
 
         if (player.numberOfQuits >= 5) {
             System.out.println("You've been banned for surpassing number of permitted quits");
@@ -36,7 +36,7 @@ public class Server {
         //TODO do i have a list of games? and matches players to know what game is going on.
         if (playerQueue.getSize() == 2) {
             Game game = new Game();
-
+            //game.setGameOver(false);
             game.playerOne = playerQueue.checkQueue(0);
             game.playerOne.character = 'X';
             game.playerOne.isInGame = true;
@@ -100,10 +100,8 @@ public class Server {
 
     }
 
-    public Player leaveGame(Player player) {
-        //  Game game = new Game();
+    public synchronized Player leaveGame(Player player) {
 
-        //  int Queue = 0;
         Player opponent = new Player();
 
         for (int i = 0; i < listOfGames.size(); i++) {
@@ -112,46 +110,25 @@ public class Server {
                 player.numberOfQuits++;
                 if (player == listOfGames.get(i).playerOne) {
                     opponent = listOfGames.get(i).playerTwo;
+                    listOfGames.get(i).playerOne = null;
+                    player.winner = false;
                 } else {
                     opponent = listOfGames.get(i).playerOne;
+                    player.winner = false;
+                    listOfGames.get(i).playerTwo = null;
                 }
-                opponent.isInGame = false;
-                listOfGames.remove(listOfGames.get(i));
-                //game = listOfGames.get(i);
-                // Queue = i;
+
+                if (opponent == null) {
+                    listOfGames.remove(listOfGames.get(i));
+                }
                 break;
             }
         }
 
-//       // if(player == naughtyPlayer){ //game.playerOne) {
-//           // player.isInGame = false;
-//            //game.playerOne.isInGame = false;
-//         //   player.numberOfQuits++;
-//            //game.playerTwo.winner = true;
-//            //game.playerTwo.hasBeenRemoved = true;
-//            //print(game.playerTwo);
-//            //listOfGames.remove(Queue);
-//            //joinGame(game.playerTwo);
-//            //joinGame(player);
-//          //  return player; //.playerTwo;
-//       // }
-//
-//       // if(player == naughtyPlayer){ //game.playerTwo) {
-//            player.isInGame = false;
-//            //game.playerTwo.isInGame = false;
-//            player.numberOfQuits++;
-//            //game.playerOne.winner = true;
-//            //game.playerOne.hasBeenRemoved = true;
-//            //print(game.playerOne);
-//            //listOfGames.remove(Queue);
-//            //joinGame(game.playerOne);
-//            //joinGame(player);
-//           // return player; //.playerOne;
-//       // }
         return player;
     }
 
-    private void print(Player player) {
+    private static void print(Player player) {
         System.out.println("TikTakToe.TikTakToe.Game over, " + player.name + " has won the game");
     }
 

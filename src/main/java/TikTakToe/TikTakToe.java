@@ -6,7 +6,7 @@ public class TikTakToe {
 
     static String playerBoard = "";
 
-    static boolean gameOver;
+    boolean gameOver;
     public String getPlayerBoard() {
         return playerBoard;
     }
@@ -14,9 +14,7 @@ public class TikTakToe {
     public boolean isGameOver() {
         return gameOver;
     }
-
     char lastMove = ' ';
-
     char[][] board = {
             {' ', ' ', ' '},
             {' ', ' ', ' '},
@@ -160,7 +158,7 @@ public class TikTakToe {
 
     }
 
-    public static void print(Player player) {
+    public void print(Player player) {
         gameOver = true;
         System.out.println("TikTakToe.TikTakToe.Game over, " + player.name + " has won the game");
     }

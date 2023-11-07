@@ -33,8 +33,16 @@ public class TheGameLoopController implements Route {
         Player player = playerInterface.getPlayer(playerName);
 
         Game game = server.getGame(player);
-        
-        return pageRenderer.RefreshBoard(game);
+
+        if (game.getBoard() == null) {
+            return PageRenderer.BOARD;
+        }
+
+        if (game.isGameOver()) {
+            return pageRenderer.renderBoard(game, player);
+        }
+
+        return pageRenderer.RefreshBoard(game, player);
 
     }
 }

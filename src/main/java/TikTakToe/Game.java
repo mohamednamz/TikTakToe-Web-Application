@@ -20,6 +20,11 @@ public class Game {
         return startGame.lastMove;
     }
 
+    public void setGameOver(boolean gameOver) {
+        startGame.gameOver = gameOver;
+    }
+
+
     public String getStartGame() {
         return startGame.getPlayerBoard();
     }

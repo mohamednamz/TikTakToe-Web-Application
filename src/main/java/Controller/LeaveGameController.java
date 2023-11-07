@@ -34,10 +34,10 @@ public class LeaveGameController implements Route {
         server.leaveGame(player);
 
         if (game.isGameOver()) {
-            return "You've left the game" + "<div> <a href=\"http://localhost//Login?name=" + playerName + "\">" + "Go back to homepage </a> </div>";
+            return "You've left the game" + "<div> <a href=\"http://192.168.1.15//Login?name=" + playerName + "\">" + "Go back to homepage </a> </div>";
         }
 
-        return "Leaving during a game is bad sportsmanship, you may get banned" + "<div> <a href=\"http://localhost//Login?name=" + playerName + "\">" + "Go back to homepage </a> </div>";
+        return "Leaving during a game is bad sportsmanship, you may get banned" + "<div> <a href=\"http://192.168.1.15//Login?name=" + playerName + "\">" + "Go back to homepage </a> </div>";
 
     }
 

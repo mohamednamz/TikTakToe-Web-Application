@@ -37,7 +37,7 @@ public class JoinGameController implements Route {
                 return pageRenderer.renderBoard(game, player);
             } else {
 
-                return pageRenderer.RefreshBoard(game);
+                return pageRenderer.RefreshBoard(game, player);
             }
         }
 
@@ -48,7 +48,7 @@ public class JoinGameController implements Route {
                 player.hasBeenRemoved = false;
                 return "Your previous opponent quit, searching for new game";
             } else {
-                return "you have been put into a game, waiting for opponent to connect" + "<div> <a href=\"http://localhost//Login?name=" + playerName + "\">" + "Go back to homepage </a> </div>";
+                return "you have been put into a game, waiting for opponent to connect" + "<div> <a href=\"http://192.168.1.15//Login?name=" + playerName + "\">" + "Go back to homepage </a> </div>";
             }
         }
 

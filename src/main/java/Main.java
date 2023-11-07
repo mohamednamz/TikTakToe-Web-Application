@@ -91,7 +91,8 @@ public class Main {
 
         get("/Login/leaveGame", leaveGameController);
 
-
     }
+
+    //todo if waiting in the joinGame page - refresh so don't have to go back to get into the game if someone joins
 
 }

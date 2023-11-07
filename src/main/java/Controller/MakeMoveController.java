@@ -51,6 +51,6 @@ public class MakeMoveController implements Route {
 
         game.getPlayMove(Integer.parseInt(yCor), Integer.parseInt(xCor), player);
 
-        return pageRenderer.RefreshBoard(game);
+        return pageRenderer.RefreshBoard(game, player);
     }
 }

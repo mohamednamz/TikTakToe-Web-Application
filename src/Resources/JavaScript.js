@@ -3,7 +3,44 @@ console.log("yo");
 
 var x = function() {console.log("bye")};
 
-setInterval(x,10000);
+setInterval(refresh,400);
+
+// can you do something which only refreshes when you make a click rather than refreshing every x amount of time?
+
+const controller = new AbortController();
+
+async function refresh() {
+
+  var response = await fetch("/render")
+
+//  var response = await fetch("/render").then(response => {
+//
+//    if (response === null) {
+//      console.log("empty");
+//      } else {
+//      var element = document.getElementById("board")
+//        element.innerHTML = await response.text();
+//      }
+//
+//
+//  }).catch(error => {
+//
+//   document.getElementById("board").style.display = "none";
+//
+//  });
+
+  var element = document.getElementById("board")
+  element.innerHTML = await response.text();
+
+
+
+
+}
+
+async function stop() {
+document.getElementById("board").style.display = "none";
+
+}
 
 var pieceSelected;
 var movePieceTo;

@@ -30,7 +30,7 @@ public class AddPlayerController implements Route {
 
         String message = "player has joined the server";
 
-        return message += "<div> <a href=\"http://localhost/Lobby\">" + "Go to lobby </a> </div>";
+        return message += "<div> <a href=\"http://192.168.1.15/Lobby\">" + "Go to lobby </a> </div>";
 
 
     }
